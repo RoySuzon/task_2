@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:task/features/auth/presentation/pages/login_screen.dart';
 import 'package:task/features/dash_screen/data/model/user_model.dart';
@@ -6,7 +8,7 @@ import 'package:task/features/dash_screen/domain/usecases/dashboard_use_case.dar
 import 'package:task/session_controller/session_controller.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  DashBoardScreen({super.key});
+  const DashBoardScreen({super.key});
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
@@ -103,8 +105,8 @@ class ProfileScreen extends StatelessWidget {
             info: userInfo.id,
           ),
           Info(
-            infoKey: "Location",
-            info: "New York, NYC",
+            infoKey: "Contact",
+            info: userInfo.contact,
           ),
           Info(
             infoKey: "Email Address",
@@ -167,7 +169,7 @@ class ProfilePic extends StatelessWidget {
 }
 
 class Info extends StatelessWidget {
-  Info({
+  const Info({
     super.key,
     required this.infoKey,
     required this.info,
