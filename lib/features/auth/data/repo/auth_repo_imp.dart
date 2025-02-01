@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 
-import 'package:task/auth/domain/repo/auth_repo.dart';
+import 'package:task/features/auth/domain/repo/auth_repo.dart';
 import 'package:task/core/error/failure.dart';
 import 'package:task/core/services/htpp_manager/http_manager.dart';
 import 'package:task/session_controller/session_manage.dart';
@@ -23,15 +23,20 @@ class AuthRepoImp implements AuthRepo {
     required String password,
   }) async {
     try {
-      final res =
-          await _httpManager.request(HttpMethod.POST, ApiEndPoint.signInApi);
+      Map<String, dynamic> body = {"email": email, "password": password};
+      final res = await _httpManager
+          .request(HttpMethod.POST, ApiEndPoint.signInApi, body: body);
 
       if (res.statusCode == 200) {
         final accessToken = jsonDecode(res.body)['data']['accessToken'];
         await sessionManager.saveSession(accessToken);
+        // await sessionManager.clearSession();
+        // final session = await sessionManager.getSession();
+
+        // log(session ?? "");
         return Right(true);
       } else {
-        return Right(false);
+        return left(Failure(jsonDecode(res.body)['message']));
       }
     } catch (e) {
       return left(Failure(e.toString()));

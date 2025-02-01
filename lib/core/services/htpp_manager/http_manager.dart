@@ -13,6 +13,10 @@ class HttpManager {
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
+    Map<String, String> defaultHeaders = {
+      ...{'Content-Type': 'application/json'},
+      ...?headers, // Spread operator to add custom headers dynamically
+    };
     final url = Uri.parse(endpoint);
 
     log("Request URL: $url");
@@ -27,14 +31,14 @@ class HttpManager {
         response = await http.post(
           url,
           body: body != null ? jsonEncode(body) : null,
-          headers: {'Content-Type': 'application/json'}..addAll(headers!),
+          headers: defaultHeaders,
         );
         break;
 
       case HttpMethod.GET:
         response = await http.get(
           url,
-          headers: {'Content-Type': 'application/json'}..addAll(headers!),
+          headers: defaultHeaders,
         );
         break;
 
@@ -42,14 +46,14 @@ class HttpManager {
         response = await http.put(
           url,
           body: body != null ? jsonEncode(body) : null,
-          headers: {'Content-Type': 'application/json'}..addAll(headers!),
+          headers: defaultHeaders,
         );
         break;
 
       case HttpMethod.DELETE:
         response = await http.delete(
           url,
-          headers: {'Content-Type': 'application/json'}..addAll(headers!),
+          headers: defaultHeaders,
         );
         break;
     }

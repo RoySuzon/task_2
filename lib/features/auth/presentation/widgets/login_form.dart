@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:task/auth/data/repo/auth_repo_imp.dart';
-import 'package:task/auth/domain/repo/auth_repo.dart';
-import 'package:task/auth/domain/usecases/login_usercase.dart';
+import 'package:task/features/auth/data/repo/auth_repo_imp.dart';
+import 'package:task/features/auth/domain/repo/auth_repo.dart';
+import 'package:task/features/auth/domain/usecases/login_usercase.dart';
+import 'package:task/features/dash_screen/presentation/pages/dash_board_screen.dart';
 import 'package:task/session_controller/session_controller.dart';
 
 class LoginForm extends StatefulWidget {
@@ -24,26 +23,17 @@ class _LoginFormState extends State<LoginForm> {
         setState(() => isLoading = true);
       }
       final AuthRepo repo = AuthRepoImp(sessionManager: SecureStorageSession());
-
       LoginUserCase login = LoginUserCase(repo);
-      await Future.delayed(Duration(seconds: 2));
-      final user = await login.loginExecute(
-          _emailController.text.trim(), _passwordController.text);
+      // await Future.delayed(Duration(seconds: 2));
+      final res = await login.loginExecute(context,
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
 
-      user.fold(
-        (failure) => print(failure),
-        (success) {
-          if (success) {
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text('SucessFully login!')));
-          } else {
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text('Something going wrong!')));
-          }
-        },
-      );
+      if (res) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => DashBoardScreen()));
+      }
       if (mounted) {
         setState(() => isLoading = false);
       }
@@ -57,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               controller: _emailController,
@@ -69,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
             PasswordField(passwordController: _passwordController),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _login,
+              onPressed: () => _login(),
               child: Center(
                   child: isLoading
                       ? SizedBox(
