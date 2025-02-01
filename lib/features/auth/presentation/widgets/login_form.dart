@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task/features/auth/data/repo/auth_repo_imp.dart';
 import 'package:task/features/auth/domain/repo/auth_repo.dart';
 import 'package:task/features/auth/domain/usecases/login_usercase.dart';
-import 'package:task/features/dash_screen/presentation/pages/dash_board_screen.dart';
+import 'package:task/features/dash_board/presentation/pages/dash_board_screen.dart';
 import 'package:task/session_controller/session_controller.dart';
 
 class LoginForm extends StatefulWidget {
@@ -51,9 +51,9 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             TextFormField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) =>
-                  value!.isEmpty ? 'Please enter your username' : null,
+                  value!.isEmpty ? 'Please enter your email' : null,
             ),
             SizedBox(height: 16),
             PasswordField(passwordController: _passwordController),

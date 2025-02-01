@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:task/features/auth/presentation/pages/login_screen.dart';
-import 'package:task/features/dash_screen/presentation/pages/dash_board_screen.dart';
+import 'package:task/features/dash_board/presentation/pages/dash_board_screen.dart';
 import 'package:task/session_controller/session_controller.dart';
 
 class SplashScreen extends StatefulWidget {

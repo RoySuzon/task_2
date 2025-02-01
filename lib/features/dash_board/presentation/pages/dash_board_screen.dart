@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:task/features/auth/presentation/pages/login_screen.dart';
-import 'package:task/features/dash_screen/data/model/user_model.dart';
-import 'package:task/features/dash_screen/data/repo/dashboard_repo_imp.dart';
-import 'package:task/features/dash_screen/domain/usecases/dashboard_use_case.dart';
+import 'package:task/features/dash_board/data/model/user_model.dart';
+import 'package:task/features/dash_board/data/repo/dashboard_repo_imp.dart';
+import 'package:task/features/dash_board/domain/usecases/dashboard_use_case.dart';
 import 'package:task/session_controller/session_controller.dart';
 
 class DashBoardScreen extends StatefulWidget {
