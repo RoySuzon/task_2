@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -6,69 +5,71 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-    bool success;
-    String message;
-    Data data;
+  bool success;
+  String message;
+  UserInfo userInfo;
 
-    UserModel({
-        required this.success,
-        required this.message,
-        required this.data,
-    });
+  UserModel({
+    required this.success,
+    required this.message,
+    required this.userInfo,
+  });
 
-    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         success: json["success"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
-    );
+        userInfo: UserInfo.fromJson(json["data"]),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data.toJson(),
-    };
+        "data": userInfo.toJson(),
+      };
 }
 
-class Data {
-    String id;
-    String firstName;
-    String lastName;
-    String email;
-    String contact;
-    String profilePicture;
-    List<dynamic> document;
-    String role;
-    String fcmToken;
-    bool isActive;
-    bool isDelete;
-    String status;
-    Validation validation;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int v;
-    List<dynamic> shifts;
+class UserInfo {
+  String id;
+  String firstName;
+  String lastName;
+  String email;
+  String contact;
+  String profilePicture;
+  List<dynamic> document;
+  String role;
+  String fcmToken;
+  bool isActive;
+  bool isDelete;
+  String status;
+  Validation validation;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
+  List<dynamic> shifts;
 
-    Data({
-        required this.id,
-        required this.firstName,
-        required this.lastName,
-        required this.email,
-        required this.contact,
-        required this.profilePicture,
-        required this.document,
-        required this.role,
-        required this.fcmToken,
-        required this.isActive,
-        required this.isDelete,
-        required this.status,
-        required this.validation,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.v,
-        required this.shifts,
-    });
+  String get fullName => "$firstName $lastName";
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+  UserInfo({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.contact,
+    required this.profilePicture,
+    required this.document,
+    required this.role,
+    required this.fcmToken,
+    required this.isActive,
+    required this.isDelete,
+    required this.status,
+    required this.validation,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.shifts,
+  });
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         id: json["_id"],
         firstName: json["firstName"],
         lastName: json["lastName"],
@@ -86,9 +87,9 @@ class Data {
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
         shifts: List<dynamic>.from(json["shifts"].map((x) => x)),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "firstName": firstName,
         "lastName": lastName,
@@ -106,21 +107,21 @@ class Data {
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
         "shifts": List<dynamic>.from(shifts.map((x) => x)),
-    };
+      };
 }
 
 class Validation {
-    bool isVerified;
+  bool isVerified;
 
-    Validation({
-        required this.isVerified,
-    });
+  Validation({
+    required this.isVerified,
+  });
 
-    factory Validation.fromJson(Map<String, dynamic> json) => Validation(
+  factory Validation.fromJson(Map<String, dynamic> json) => Validation(
         isVerified: json["isVerified"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "isVerified": isVerified,
-    };
+      };
 }

@@ -30,10 +30,6 @@ class AuthRepoImp implements AuthRepo {
       if (res.statusCode == 200) {
         final accessToken = jsonDecode(res.body)['data']['accessToken'];
         await sessionManager.saveSession(accessToken);
-        // await sessionManager.clearSession();
-        // final session = await sessionManager.getSession();
-
-        // log(session ?? "");
         return Right(true);
       } else {
         return left(Failure(jsonDecode(res.body)['message']));
